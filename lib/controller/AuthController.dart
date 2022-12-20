@@ -16,19 +16,22 @@ class AuthController extends GetxController {
   File? proImg;
 
 //  User state
- late Rx<User?> _user;
-@override
-void onReady(){
-  super.onReady();
-  _user=Rx<User?>(FirebaseAuth.instance.currentUser) ;
-  _user.bindStream(FirebaseAuth.instance.authStateChanges());
-  ever(_user, _setInitialView);
-}
-  _setInitialView(User? user){
-  if(user==null){
-    Get.offAll(()=>const LoginScreen());
+  late Rx<User?> _user;
+  User get user=>_user.value!;
+  @override
+  void onReady() {
+    super.onReady();
+    _user = Rx<User?>(FirebaseAuth.instance.currentUser);
+    _user.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_user, _setInitialView);
   }
-  Get.offAll(()=>const HomeScreen());
+
+  _setInitialView(User? user) {
+    if (user == null) {
+      Get.offAll(() => const LoginScreen());
+    } else {
+      Get.offAll(() => const HomeScreen());
+    }
   }
 
 //  Pic image

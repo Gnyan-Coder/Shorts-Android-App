@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/controller/AuthController.dart';
+import 'package:tiktok/view/screens/auth/Signup.dart';
 import 'package:tiktok/view/widgets/TextInputField.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,7 +13,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController=TextEditingController();
-
   TextEditingController passwordController=TextEditingController();
 
   @override
@@ -47,7 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
                           child: const Text("Login")
                       )
-                  )
+                  ),
+                  TextButton(onPressed: (){
+                    Get.off(SignupScreen());
+                  }, child: Text("SignUp"))
                 ],
               ),
             ),
