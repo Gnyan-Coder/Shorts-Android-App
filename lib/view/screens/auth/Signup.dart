@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tiktok/controller/AuthController.dart';
+import 'package:tiktok/view/screens/auth/Login.dart';
 import 'package:tiktok/view/widgets/TextInputField.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -77,6 +79,18 @@ class _SignupScreenState extends State<SignupScreen> {
                           padding: const EdgeInsets.symmetric(horizontal: 50,vertical: 10),
                           child: const Text("Sign Up")
                       )
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("If you have account ?"),
+                      TextButton(
+                          onPressed: (){
+                            Get.off(const LoginScreen());
+                          },
+                          child:const Text("Login")
+                      )
+                    ],
                   )
                 ],
               ),

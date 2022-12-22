@@ -20,12 +20,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Tik Tok',
+      title: 'Shorts',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: backgroundColor,
       ),
       debugShowCheckedModeBanner: false,
-      home:SignupScreen(),
+      home:const LoginScreen(),
     );
   }
 }

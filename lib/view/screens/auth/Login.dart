@@ -49,9 +49,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: const Text("Login")
                       )
                   ),
-                  TextButton(onPressed: (){
-                    Get.off(SignupScreen());
-                  }, child: Text("SignUp"))
+                  const SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Don't have an Account ?"),
+                      TextButton(onPressed: (){
+                        Get.off(const SignupScreen());
+                      }, child: const Text("Create Account")),
+                    ],
+                  )
                 ],
               ),
             ),

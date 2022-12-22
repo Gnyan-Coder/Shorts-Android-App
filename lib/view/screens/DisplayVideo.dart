@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/VideoController.dart';
@@ -32,12 +33,22 @@ class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
                   children: [
                         ShortsVideoPlayer(videoUrl:data.videoUrl,),
                     Container(
+                      margin:const  EdgeInsets.only(left: 15,top: 35),
+                      child: Column(
+                        children:const [
+                          Image(image: AssetImage("assets/images/shorts.png"),width:30,fit: BoxFit.cover,),
+                          SizedBox(height: 5,),
+                          Text("Shorts",style: TextStyle(fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    ),
+                    Container(
                       margin: const EdgeInsets.only(bottom: 10,left: 15),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(data.userName,style: const TextStyle(fontWeight: FontWeight.bold),),
+                          Text("@ ${data.userName}",style: const TextStyle(fontWeight: FontWeight.bold),),
                           Text(data.caption,style: const TextStyle(fontWeight: FontWeight.bold),),
                           Text(data.songName,style: const TextStyle(fontWeight: FontWeight.bold),),
                         ],
@@ -47,7 +58,7 @@ class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
                       right: 0,
                       child: Container(
                         height: height/2,
-                        margin: EdgeInsets.only(top: height/2.6,right: 5),
+                        margin: EdgeInsets.only(top: height/2.8,right: 5),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
@@ -58,7 +69,7 @@ class _DisplayVideoScreenState extends State<DisplayVideoScreen> {
                               },
                               child: Column(
                                 children: [
-                                  const Icon(Icons.favorite,size: 40,color: Colors.pinkAccent,),
+                                  Icon(Icons.favorite,size: 40,color:data.likes.contains(FirebaseAuth.instance.currentUser!.uid)?Colors.pinkAccent:Colors.white,),
                                   Text(data.likes.length.toString(),style: const TextStyle(color: Colors.white,fontSize: 15),)
                                 ],
                               ),

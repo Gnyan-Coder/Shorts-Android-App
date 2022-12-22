@@ -11,6 +11,7 @@ class ShortsVideoPlayer extends StatefulWidget {
 
 class _ShortsVideoPlayerState extends State<ShortsVideoPlayer> {
   late VideoPlayerController videoPlayerController;
+  bool pause=false;
   @override
   void initState() {
     videoPlayerController=VideoPlayerController.network(widget.videoUrl)..initialize().then((value){
@@ -29,13 +30,41 @@ class _ShortsVideoPlayerState extends State<ShortsVideoPlayer> {
   Widget build(BuildContext context) {
     final width=MediaQuery.of(context).size.width;
     final height=MediaQuery.of(context).size.height;
-    return Container(
-      width:width,
-      height: height,
-      decoration: const BoxDecoration(
-        color: Colors.black
+    return GestureDetector(
+      onTap: (){
+        setState(() {
+          if(videoPlayerController.value.isPlaying){
+            videoPlayerController.pause();
+            pause=true;
+            print(pause);
+          }else {
+            videoPlayerController.play();
+          }
+        });
+      },
+      child: Container(
+        width:width,
+        height: height,
+        decoration: const BoxDecoration(
+          color: Colors.black
+        ),
+        child: Stack(
+          children: [
+            VideoPlayer(videoPlayerController),
+            Positioned(
+              left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0,
+                child:videoPlayerController.value.isPlaying ?  const Icon(Icons.play_arrow):AnimatedOpacity(
+                    opacity: pause ? 1 : 0,
+                    duration: const Duration(microseconds: 1),
+                    child: const Icon(Icons.pause)
+                )
+            )
+          ],
+        ),
       ),
-      child: VideoPlayer(videoPlayerController),
     );
   }
 }

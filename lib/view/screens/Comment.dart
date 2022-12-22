@@ -47,16 +47,18 @@ class _CommentScreenState extends State<CommentScreen> {
                                     style: const TextStyle(fontSize: 13,
                                         fontWeight: FontWeight.w600,color: Colors.redAccent),),
                                   const SizedBox(width: 5,),
-                                  Text(comment.comment, style: const TextStyle(fontSize: 13,
-                                      fontWeight: FontWeight.w600,color: Colors.white),)
+                                  Expanded(
+                                    child: Text(comment.comment, style: const TextStyle(fontSize: 13,
+                                        fontWeight: FontWeight.w600,color: Colors.white),),
+                                  )
                                 ],
                               ),
                               subtitle: Row(
                                 children: [
                                   Text(tago.format(DateTime.parse(comment.datePub)), style: const TextStyle(fontSize: 13,
-                                      fontWeight: FontWeight.bold,color: Colors.white),),
+                                      fontWeight: FontWeight.w400,color: Colors.white),),
                                   const SizedBox(width: 5,),
-                                  Text("${comment.likes.length}", style: const TextStyle(fontSize: 13,
+                                  Text("Likes ${comment.likes.length}", style: const TextStyle(fontSize: 13,
                                       fontWeight: FontWeight.w600,color: Colors.white),),
                                 ],
                               ),
@@ -64,7 +66,8 @@ class _CommentScreenState extends State<CommentScreen> {
                                 onTap: (){
                                   commentController.likeComment(comment.id);
                                 },
-                                  child: const Icon(Icons.favorite,color: Colors.redAccent,))
+                                  child: Icon(Icons.favorite,color:comment.likes.contains(FirebaseAuth.instance.currentUser!.uid)?Colors.pinkAccent:Colors.white,)
+                              )
                             );
                         });
                       }
@@ -72,8 +75,24 @@ class _CommentScreenState extends State<CommentScreen> {
                   ),
               const Divider(),
               ListTile(
-                title: TextInputField(controller: _commentController,
-                  myIcon: Icons.comment,myLabelText: "Comments",),
+                leading: const Icon(Icons.comment),
+                title: TextField(
+                  controller: _commentController,
+                  textInputAction: TextInputAction.send,
+                  style: const TextStyle(color: Colors.white),
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
+                    errorBorder: InputBorder.none,
+                    disabledBorder: InputBorder.none,
+                    hintText: "Write your comments",
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
                 trailing: TextButton(
                   onPressed: (){
                     commentController.postComment(_commentController.text);
