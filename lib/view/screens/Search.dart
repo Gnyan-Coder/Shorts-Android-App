@@ -47,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
               MyUser user =searchUserController.searchedUsers[index];
               return ListTile(
                 onTap: (){
-                    Get.off(ProfileScreen(uid: user.uid));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfileScreen(uid: user.uid)));
                 },
                 leading: CircleAvatar(
                   backgroundColor: Colors.grey,

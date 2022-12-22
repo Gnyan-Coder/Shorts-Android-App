@@ -11,7 +11,6 @@ class ShortsVideoPlayer extends StatefulWidget {
 
 class _ShortsVideoPlayerState extends State<ShortsVideoPlayer> {
   late VideoPlayerController videoPlayerController;
-  bool pause=false;
   @override
   void initState() {
     videoPlayerController=VideoPlayerController.network(widget.videoUrl)..initialize().then((value){
@@ -35,8 +34,6 @@ class _ShortsVideoPlayerState extends State<ShortsVideoPlayer> {
         setState(() {
           if(videoPlayerController.value.isPlaying){
             videoPlayerController.pause();
-            pause=true;
-            print(pause);
           }else {
             videoPlayerController.play();
           }
@@ -56,11 +53,7 @@ class _ShortsVideoPlayerState extends State<ShortsVideoPlayer> {
                 right: 0,
                 top: 0,
                 bottom: 0,
-                child:videoPlayerController.value.isPlaying ?  const Icon(Icons.play_arrow):AnimatedOpacity(
-                    opacity: pause ? 1 : 0,
-                    duration: const Duration(microseconds: 1),
-                    child: const Icon(Icons.pause)
-                )
+                child:Icon(videoPlayerController.value.isPlaying ? Icons.pause:Icons.play_arrow)
             )
           ],
         ),

@@ -31,4 +31,11 @@ class VideoController extends GetxController{
       });
     }
   }
+  shareVideo(String id)async{
+    DocumentSnapshot doc=await FirebaseFirestore.instance.collection("videos").doc(id).get();
+    int newShareCount=(doc.data() as dynamic) ['shareCount']+1;
+    await FirebaseFirestore.instance.collection("videos").doc(id).update({
+      "shareCount":newShareCount,
+    });
+  }
 }
